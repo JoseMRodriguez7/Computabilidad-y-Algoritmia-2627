@@ -6,14 +6,14 @@
 // Práctica 0
 // Autor: José Manuel Rodriguez
 // Correo: alu0101815671@ull.edu.es
-// Fecha: 16/09/2025
-// Archivo cya-P02-strings.cc: programa cliente.
-//         Contiene la función main del proyecto que usa las clases X e Y
-//         para ... (indicar brevemente el objetivo)
+// Fecha: 09/09/2026
+// Archivo pell.cc: programa cliente.
+//         Contiene la funcion de numerar los terminos de
+//         la serie de Pell
 // Referencias:
 //         Enlaces de interés
 // Historial de revisiones
-//         09/09/2025 - Creación (primera versión) del código
+//         09/09/2026 - Creación (primera versión) del código
 
 #include <iostream>
 #include <cmath>
