@@ -18,14 +18,19 @@
 
 class MultipleGradesManager {
  public:
+  // Constructor
   MultipleGradesManager() = default;
   
+  // Entrada desde un fichero
   void ReadFile(const std::string& filename);
+
+  // Añadir una calificacion individual de un estudiante
   void InsertGrade(const std::string& student, double grade);
+
+  // Salida de las notas de cada estudiante
   void DisplayAllGrades() const;
 
  private:
-  // Se usa un map ordenado que vincula cada identificador con un vector dinámico
-  // que acumulará todas sus notas en orden de inserción.
+  // Para guardar multiples notas usamos un vector double
   std::map<std::string, std::vector<double>> student_grades_;
 };

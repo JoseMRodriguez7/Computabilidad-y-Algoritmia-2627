@@ -18,13 +18,12 @@
 
 class GradeManager {
   public:
-    // Constructores
+    // Constructor
     GradeManager() = default;
    
     // Añadir una calificacion individual de un estudiante
     void InsertGrade(const std::string& student, double grade);
 
-    // E/S
     // Entrada desde un fichero
     void ReadFile(const std::string& filename);
 

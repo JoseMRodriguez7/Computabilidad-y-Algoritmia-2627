@@ -26,8 +26,6 @@ void GradeManager::ReadFile(const std::string& filename) {
   std::string alumno;
   double nota;
 
-  // Lee directamente separando por espacios. 
-  // 'alumno' recoge el texto, 'nota' recoge el número decimal.
   while (input_file >> alumno >> nota) {
     // Mandamos el alumno y la nota al método que decide si se guarda o no
     InsertGrade(alumno, nota);
@@ -39,16 +37,12 @@ void GradeManager::InsertGrade(const std::string& student, double grade) {
   // Buscamos si el alumno ya existe en el mapa
   auto it = grades_.find(student);
   
+  // Si el alumno ya existe, comparamos la nota nueva con la existente
   if (it != grades_.end()) { 
-    // EL ALUMNO YA EXISTE.
-    // it->second representa la nota que ya estaba guardada.
-    // 'grade' es la nota nueva que acabamos de leer.
     if (grade > it->second) { 
-      it->second = grade; // Actualizamos la nota porque la nueva es mayor
+      it->second = grade;
     }
   } else {
-    // EL ALUMNO NO EXISTE EN EL MAPA.
-    // Lo insertamos por primera vez.
     grades_.insert({student, grade});
   }
 }
@@ -56,7 +50,6 @@ void GradeManager::InsertGrade(const std::string& student, double grade) {
 void GradeManager::DisplayMaxGrades() const {
   const char SPACE = ' ';
   
-  // Iterar por el multimap agrupando por la clave (alu)
   for (const auto& it : grades_) {
     std::cout << it.first << SPACE << it.second << std::endl;
   }

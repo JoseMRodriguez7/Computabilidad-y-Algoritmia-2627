@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
   manager.ReadFile(filename);
   manager.DisplayMaxGrades();
 
-  // Opción para insertar elementos de forma individual solicitada en la práctica
+  // Opción para insertar elementos de forma individual
   std::string new_student;
   double new_grade;
   std::cout << "\nInserte un nuevo registro individual (alu nota): ";
