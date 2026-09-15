@@ -15,12 +15,28 @@
 // Historial de revisiones
 // 13/09/2026 - Creacion (primera version) del codigo
 
+#pragma once
+
 #include <iostream>
 #include <map>
 #include <string>
 
-void MensajeError();
+class GradeManager {
+  public:
+    // Constructores
+    GradeManager() = default;
+   
+    // Añadir una calificacion individual de un estudiante
+    void InsertGrade(const std::string& student, double grade);
 
-void MensajeHelp();
+    // E/S
+    // Entrada desde un fichero
+    void ReadFile(const std::string& filename);
 
-void MostrarMapa(const std::map<std::string, double>&);
+    // Salida de la maxima nota de cada estudiante
+    void DisplayMaxGrades() const;
+
+  private:
+    std::map<std::string, double> grades_;
+
+};
