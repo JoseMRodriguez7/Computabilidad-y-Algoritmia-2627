@@ -30,8 +30,6 @@ void MultipleGradesManager::ReadFile(const std::string& filename) {
 }
 
 void MultipleGradesManager::InsertGrade(const std::string& student_id, double grade) {
-  // map::operator[] crea un vector vacío si la clave no existe,
-  // luego hace push_back de la nota en el vector correspondiente.
   student_grades_[student_id].push_back(grade);
 }
 
