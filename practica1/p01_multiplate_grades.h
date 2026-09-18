@@ -30,6 +30,9 @@ class MultipleGradesManager {
   // Salida de las notas de cada estudiante
   void DisplayAllGrades() const;
 
+  // Modificacion
+  void MaxGrade(const std::string&) const;
+
  private:
   // Para guardar multiples notas usamos un vector double
   std::map<std::string, std::vector<double>> student_grades_;

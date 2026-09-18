@@ -23,25 +23,31 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
-  if (argc != 2) {
+  if (argc > 4) {
     std::cerr << "Pruebe './p01_multiple_grades --help' para mas informacion.\n";
     return 1;
   }
 
-  std::string filename = argv[1];
+  std::string filename{argv[1]};
   MultipleGradesManager manager;
   
   manager.ReadFile(filename);
-  manager.DisplayAllGrades();
 
-  // Opción para insertar elementos de forma individual
-  std::string new_student;
-  double new_grade;
-  std::cout << "\nInserte un nuevo registro individual (alu nota): ";
-  if (std::cin >> new_student >> new_grade) {
-    manager.InsertGrade(new_student, new_grade);
+  if (argc == 4) {
+      if (std::string(argv[2]) == "--max") {
+      manager.MaxGrade(std::string(argv[3]));
+    }
+  } else {
     manager.DisplayAllGrades();
-  }
 
+    // Opción para insertar elementos de forma individual
+    std::string new_student;
+    double new_grade;
+    std::cout << "\nInserte un nuevo registro individual (alu nota): ";
+    if (std::cin >> new_student >> new_grade) {
+      manager.InsertGrade(new_student, new_grade);
+      manager.DisplayAllGrades();
+    }
+  }
   return 0;
 }

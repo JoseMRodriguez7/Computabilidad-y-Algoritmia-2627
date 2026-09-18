@@ -44,3 +44,19 @@ void MultipleGradesManager::DisplayAllGrades() const {
     std::cout << "\n";
   }
 }
+
+// Modificacion
+void MultipleGradesManager::MaxGrade(const std::string& student) const {
+  for (const auto& it : student_grades_) {
+    if (student == it.first) {
+      double max_grade{0};
+      for (const double grade : it.second) {
+        if (grade > max_grade)
+          max_grade = grade;
+      }
+      std::cout << "La calificación máxima es " << max_grade << std::endl;
+      return;
+    }
+  }
+  std::cout << "No se ha encontrado el estudiante " << student << std::endl;
+}
