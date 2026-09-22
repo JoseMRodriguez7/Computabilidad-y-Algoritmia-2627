@@ -22,7 +22,7 @@ class Chain {
   public:
   // Constructor
   Chain() = default;
-  explicit Chain(const std::string& sequence) : chain_(sequence) {}
+  explicit Chain(const std::string& chain) : chain_(chain) {}
 
   // Metodos
   int Length() const;

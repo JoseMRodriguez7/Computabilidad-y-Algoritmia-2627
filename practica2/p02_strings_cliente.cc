@@ -17,8 +17,13 @@
 #include "p02_language.h"
 
 int main(int argc, char* argv[]) {
+  if (argc == 1) {
+    std::cerr << "Modo de empleo: ./p02_strings filein.txt fileout.txt opcode\n"
+              << "Pruebe ’./p02_strings --help’ para más información.\n";
+    return 1;
+  }
 
-  if (argc == 1 || std::string(argv[1]) == "--help") {
+  if (argc == 2 || std::string(argv[1]) == "--help") {
     std::cout << "Modo de empleo: ./p02_strings filein.txt fileout.txt opcode\n"
               << "Codigos de operacion:\n"
               << "  1: Alfabeto\n"
@@ -51,22 +56,23 @@ int main(int argc, char* argv[]) {
 
     switch (opcode) {
       case 1:
-        output_file << chain << ": " << alphabet << "\n";
+        output_file << chain << ": " << alphabet << std::endl;
         break;
       case 2:
-        output_file << chain.Length() << "\n";
+        output_file << chain.Length() << std::endl;
         break;
       case 3:
-        output_file << chain << " -> " << chain.Reverse() << "\n";
+        output_file << chain << " -> " << chain.Reverse() << std::endl;
         break;
       case 4:
-        output_file << chain.Prefixes() << "\n";
+        output_file << chain.Prefixes() << std::endl;
         break;
       case 5:
-        output_file << chain.Suffixes() << "\n";
+        output_file << chain.Suffixes() << std::endl;
         break;
       case 6:
-        output_file << (chain.IsValid(alphabet) ? "OK" : "ERROR") << "\n";
+        output_file << (chain.IsValid(alphabet) ? "OK" : "ERROR") 
+                    << std::endl;
         break;
       default:
         std::cerr << "Codigo de operacion " << opcode << " no valido.\n";
