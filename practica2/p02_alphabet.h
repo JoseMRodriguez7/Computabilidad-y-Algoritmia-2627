@@ -29,5 +29,5 @@ class Alphabet {
   friend std::ostream& operator<<(std::ostream& os, const Alphabet& alphabet);
 
  private:
-  std::set<Symbol> symbols_; // Uso de std::set exigido en la práctica
+  std::set<Symbol> symbols_;
 };

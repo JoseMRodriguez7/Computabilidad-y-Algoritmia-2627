@@ -7,7 +7,7 @@
 // Autor: José Manuel Rodríguez Rodríguez
 // Correo: alu0101815671@ull.edu.es
 // Fecha: 17/09/2025
-// Archivo p02_strings.h: Definición de la clase String y sus métodos.
+// Archivo p02_chain.cc.h: Implementacion de la clase Chain y sus métodos.
 // 
 
 #include "p02_chain.h"

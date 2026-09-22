@@ -7,7 +7,7 @@
 // Autor: José Manuel Rodríguez Rodríguez
 // Correo: alu0101815671@ull.edu.es
 // Fecha: 17/09/2025
-// Archivo p02_language.h: Definición de la clase Language y sus métodos.
+// Archivo p02_language.cc: Implementacion de la clase Language y sus métodos.
 
 #include "p02_language.h"
 
