@@ -8,6 +8,7 @@
 // Correo: alu0101815671@ull.edu.es
 // Fecha: 04/10/2026
 // Archivo html_analyzer.h: Definicion de la clase html_analyzer y sus métodos
+
 #pragma once
 
 #include <string>

@@ -8,6 +8,7 @@
 // Correo: alu0101815671@ull.edu.es
 // Fecha: 04/10/2026
 // Archivo html_analyzer.cc: Implementación de la clase html_analyzer.
+
 #include "html_analyzer.h"
 #include <fstream>
 #include <sstream>
@@ -32,42 +33,45 @@ bool HtmlAnalyzer::Analyze() {
   file.close();
 
   // 1. Detectar DOCTYPE
-  std::regex doctype_regex(R"(<!DOCTYPE\s+html>)", std::regex_constants::icase);
+  std::regex doctype_regex(R"(<!DOCTYPE\s+html>)", std::regex::icase);
   std::smatch match;
   if (std::regex_search(content_, match, doctype_regex)) {
     has_doctype_ = true;
   }
 
   // 2. Detectar Comentarios multilínea o de una línea
-  std::regex comment_regex(R"(<!--((?:.|\n|\r)*?)-->)");
-  auto comments_begin = std::sregex_iterator(content_.begin(), content_.end(), comment_regex);
-  auto comments_end = std::sregex_iterator();
+  std::regex comment_regex(R"(<!--([\s\S]*?)-->)");
 
-  for (std::sregex_iterator i = comments_begin; i != comments_end; ++i) {
-    std::smatch c_match = *i;
+  auto c_it = std::sregex_iterator(content_.begin(), content_.end(), comment_regex);
+  auto c_end = std::sregex_iterator();
+
+  while (c_it != c_end) {
+    std::smatch c_match = *c_it;
+    
     Comment comment;
+    comment.text = c_match.str(0); // El texto completo
     comment.start_line = GetLineNumber(c_match.position(0));
     comment.end_line = GetLineNumber(c_match.position(0) + c_match.length(0) - 1);
-    comment.text = c_match.str(0); 
     comment.is_description = false;
 
+    // Si es el primer comentario y está en la línea 2 (tras el DOCTYPE)
     if (has_doctype_ && comments_list_.empty() && comment.start_line == 2) {
       comment.is_description = true;
       description_ = c_match.str(1); 
-      description_.erase(0, description_.find_first_not_of(" \n\r\t"));
-      description_.erase(description_.find_last_not_of(" \n\r\t") + 1);
+      
+      // Limpiamos espacios y saltos de línea al principio y al final usando otra regex sencilla
+      description_ = std::regex_replace(description_, std::regex(R"(^\s+|\s+$)"), "");
     }
+    
     comments_list_.push_back(comment);
+    ++c_it; // Avanzamos al siguiente comentario
   }
 
   // 3. Detectar Etiquetas y atributos
   std::regex tag_regex(R"(<\s*(/?)\s*(html|head|title|body|h1|p|a|img)\b([^>]*?)>)", std::regex_constants::icase);
   auto tags_begin = std::sregex_iterator(content_.begin(), content_.end(), tag_regex);
-  
-  // CORRECCIÓN: Faltaba definir tags_end
   auto tags_end = std::sregex_iterator();
   
-  // CORRECCIÓN: Faltaban las comillas dobles de cierre en el regex
   std::regex attr_regex(R"(([a-zA-Z\-]+)\s*=\s*"([^"]*))");
 
   for (std::sregex_iterator i = tags_begin; i != tags_end; ++i) {
@@ -87,8 +91,6 @@ bool HtmlAnalyzer::Analyze() {
     // Si tiene atributos y no es de cierre, iteramos sobre los atributos
     if (!is_closing && !attr_string.empty()) {
       auto attr_begin = std::sregex_iterator(attr_string.begin(), attr_string.end(), attr_regex);
-      
-      // CORRECCIÓN: Crear un iterador de fin específico para los atributos
       auto attr_end = std::sregex_iterator(); 
       for (std::sregex_iterator a = attr_begin; a != attr_end; ++a) {
         std::smatch a_match = *a;
@@ -104,16 +106,16 @@ bool HtmlAnalyzer::WriteReport(const std::string& output_filename) const {
   std::ofstream out(output_filename);
   if (!out.is_open()) return false;
 
-  out << "PROGRAM: " << filename_ << "\n";
+  out << "PROGRAM: " << filename_ << "\n\n";
   if (!description_.empty()) {
-    out << "DESCRIPTION:\n" << description_ << "\n";
+    out << "DESCRIPTION:\n" << description_ << "\n\n";
   }
   
   out << "STRUCTURE:\n"
       << "HTML: " << (has_html_ ? "True" : "False") << "\n"
       << "HEAD: " << (has_head_ ? "True" : "False") << "\n"
       << "BODY: " << (has_body_ ? "True" : "False") << "\n"
-      << "DOCTYPE " << (has_doctype_ ? "HTML5" : "None") << "\n\n";
+      << "DOCTYPE: " << (has_doctype_ ? "HTML5" : "None") << "\n\n";
 
   out << "TAGS:\n";
   for (const auto& tag : tags_list_) {
@@ -126,7 +128,7 @@ bool HtmlAnalyzer::WriteReport(const std::string& output_filename) const {
     if (tag.HasAttribute()) {
       out << "[Line " << tag.Getline() << "] " << tag.Getname() << "\n";
       for (const auto& attr : tag.GetAttribute()) {
-        out << attr.name << "=\"" << attr.value << "\"\n";
+        out << attr.name << " = \"" << attr.value << "\"\n";
       }
       out << "\n";
     }
@@ -143,7 +145,7 @@ bool HtmlAnalyzer::WriteReport(const std::string& output_filename) const {
         out << "[Line " << comment.start_line << "-" << comment.end_line << "]\n";
       }
     }
-    out << comment.text << "\n";
+    out << comment.text << "\n\n";
   }
   return true;
 }
