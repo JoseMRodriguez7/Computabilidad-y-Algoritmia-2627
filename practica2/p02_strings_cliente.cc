@@ -18,24 +18,27 @@
 
 int main(int argc, char* argv[]) {
   if (argc == 1) {
-    std::cerr << "Modo de empleo: ./p02_strings filein.txt fileout.txt opcode\n"
+    std::cerr << "Modo de empleo: ./p02_strings filein.txt fileout.txt opcode"
+              << " (palabra a concatenar)\n"
               << "Pruebe ’./p02_strings --help’ para más información.\n";
     return 1;
   }
 
   if (argc == 2 || std::string(argv[1]) == "--help") {
-    std::cout << "Modo de empleo: ./p02_strings filein.txt fileout.txt opcode\n"
+    std::cout << "Modo de empleo: ./p02_strings filein.txt fileout.txt opcode"
+              << " (palabra a concatenar)\n"
               << "Codigos de operacion:\n"
               << "  1: Alfabeto\n"
               << "  2: Longitud\n"
               << "  3: Inversa\n"
               << "  4: Prefijos\n"
               << "  5: Sufijos\n"
-              << "  6: Validacion (OK/ERROR)\n";
+              << "  6: Validacion (OK/ERROR)\n"
+              << "  7: Concatenar\n";
     return 0;
   }
 
-  if (argc != 4) {
+  if (argc > 5) {
     std::cerr << "Pruebe './p02_strings --help' para mas informacion.\n";
     return 1;
   }
@@ -43,12 +46,21 @@ int main(int argc, char* argv[]) {
   std::ifstream input_file(argv[1]);
   std::ofstream output_file(argv[2]);
   const int opcode = std::stoi(argv[3]);
+  std::string nueva_cadena;
 
   if (!input_file.is_open() || !output_file.is_open()) {
     std::cerr << "Error al abrir los ficheros.\n";
     return 1;
   }
 
+  if (opcode == 7) {
+    if (argc != 5) {
+      std::cerr << "Error. no existe la cadena a concatenar\n";
+      return 1;
+    } else {
+      nueva_cadena = argv[4];
+    }
+  }
   std::string chain_str, alpha_str;
   while (input_file >> chain_str >> alpha_str) {
     Alphabet alphabet(alpha_str);
@@ -72,6 +84,10 @@ int main(int argc, char* argv[]) {
         break;
       case 6:
         output_file << (chain.IsValid(alphabet) ? "OK" : "ERROR") 
+                    << std::endl;
+        break;
+      case 7:
+        output_file << chain << ": " << chain.Concatenar(nueva_cadena)
                     << std::endl;
         break;
       default:

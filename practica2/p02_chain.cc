@@ -55,6 +55,19 @@ Language Chain::Suffixes() const {
   return result;
 }
 
+// Modificacion
+Chain Chain::Concatenar(const std::string& new_chain) const {
+  std::string result(chain_);
+  if (new_chain.empty()) {
+    result += "&";
+    return Chain(result);
+  }
+  result += new_chain;
+  Alphabet new_alphabet(result);
+  Chain concatenado(result);
+  return concatenado;
+}
+
 bool Chain::IsValid(const Alphabet& alphabet) const {
   if (Length() == 0) return true;
   

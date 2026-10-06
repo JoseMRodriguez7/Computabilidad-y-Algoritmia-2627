@@ -23,6 +23,13 @@ struct Comment {
   bool is_description;
 };
 
+// Estructura para almacenar links (Modificacion)
+struct Links {
+  int line;
+  std::string url;
+  std::string text;
+};
+
 class HtmlAnalyzer {
  public:
   HtmlAnalyzer(const std::string& input_filename);
@@ -46,6 +53,8 @@ class HtmlAnalyzer {
   
   std::vector<Tags> tags_list_;
   std::vector<Comment> comments_list_;
+  // vector para almacenar todos los links
+  std::vector<Links> links_list_;
 
   // Metodo auxiliar para calcular en que linea cae una posicion del texto
   int GetLineNumber(size_t position) const;

@@ -99,6 +99,19 @@ bool HtmlAnalyzer::Analyze() {
     }
     tags_list_.push_back(new_tag);
   }
+
+  // 4. Detectar links (Modificacion)
+  std::regex link_regex(R"(<a\s+[^>]*href\s*=\s*"([^"]*)\"[^>]*>([\s\S]*?)</a>)", std::regex::icase);
+  auto links_begin = std::sregex_iterator(content_.begin(), content_.end(), link_regex);
+  auto links_end = std::sregex_iterator();
+  for (std::sregex_iterator i = links_begin; i != links_end; i++) {
+    std::smatch l_match = *i;
+    Links link;
+    link.line = GetLineNumber(l_match.position(0));
+    link.url = l_match.str(1);
+    link.text = l_match.str(2);
+    links_list_.push_back(link);
+  }
   return true;
 }
 
@@ -146,6 +159,13 @@ bool HtmlAnalyzer::WriteReport(const std::string& output_filename) const {
       }
     }
     out << comment.text << "\n\n";
+  }
+
+  out << "LINKS:\n\n";
+  for (const auto& link : links_list_) {
+    out << "[Line " << link.line << "]\n";
+    out << "URL: " << link.url << std::endl;
+    out << "TEXT: " << link.text << "\n\n";
   }
   return true;
 }

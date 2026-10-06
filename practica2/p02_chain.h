@@ -29,6 +29,9 @@ class Chain {
   Chain Reverse() const;
   Language Prefixes() const;
   Language Suffixes() const;
+
+  // Modificacion
+  Chain Concatenar(const std::string& new_chain) const;
   
   bool IsValid(const Alphabet& alphabet) const;
 
