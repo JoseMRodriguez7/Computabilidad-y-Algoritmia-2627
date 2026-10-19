@@ -6,8 +6,8 @@
 // Práctica 2: Cadenas y lenguajes
 // Autor: José Manuel Rodríguez Rodríguez
 // Correo: alu0101815671@ull.edu.es
-// Fecha: 17/09/2025
-// Archivo p02_alphabet.h: Definición de la clase Alphabet.
+// Fecha: 14/10/2026
+// Archivo alphabet.h: Definición de la clase Alphabet.
 
 #pragma once
 
@@ -16,18 +16,38 @@
 #include <string>
 #include "symbol.h"
 
+/**
+ * @class Alphabet
+ * @brief Clase que representa un alfabeto como un conjunto finito de símbolos válidos.
+ */
 class Alphabet {
  public:
+  /**
+   * @brief Constructor por defecto.
+   */
   Alphabet() = default;
-  // Construye el alfabeto a partir de una cadena de caracteres
+
+  /**
+   * @brief Constructor que crea el alfabeto a partir de una cadena de caracteres.
+   * @param symbols Cadena de texto donde cada carácter será un símbolo del alfabeto.
+   */
   explicit Alphabet(const std::string& symbols);
 
-  // Comprueba si un símbolo pertenece al alfabeto
+  /**
+   * @brief Comprueba si un símbolo concreto pertenece al alfabeto.
+   * @param symbol Símbolo que se desea buscar.
+   * @return true si el símbolo es parte del alfabeto, false en caso contrario.
+   */
   bool Contains(const Symbol& symbol) const;
 
-  // Sobrecarga del operador de salida
+  /**
+   * @brief Sobrecarga del operador de inserción para imprimir el alfabeto.
+   * @param os Flujo de salida.
+   * @param alphabet Alfabeto a imprimir.
+   * @return std::ostream& Referencia al flujo de salida.
+   */
   friend std::ostream& operator<<(std::ostream& os, const Alphabet& alphabet);
 
  private:
-  std::set<Symbol> symbols_;
+  std::set<Symbol> symbols_; /// Conjunto de símbolos únicos que conforman el alfabeto.
 };

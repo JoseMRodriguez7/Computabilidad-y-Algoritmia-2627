@@ -7,7 +7,7 @@
 // Autor: José Manuel Rodríguez Rodríguez
 // Correo: alu0101815671@ull.edu.es
 // Fecha: 13/10/2026
-// Archivo state.h: Implementacion de la clase State.
+// Archivo state.cc: Implementacion de la clase State.
 
 #include <iostream>
 #include "state.h"
@@ -31,9 +31,9 @@ int State::Transit(const Symbol& symbol) {
 }
 
 bool State::CheckTransitions(int total_states) const {
-  for (const auto& par : transitions_) {
-    int destino = par.second;
-    if (destino < 0 || destino >= total_states) {
+  for (const auto& pair : transitions_) {
+    int destiny = pair.second;
+    if (destiny < 0 || destiny >= total_states) {
       return false; 
     }
   }

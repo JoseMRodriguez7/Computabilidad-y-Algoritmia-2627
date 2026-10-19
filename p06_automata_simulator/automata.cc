@@ -7,11 +7,12 @@
 // Autor: José Manuel Rodríguez Rodríguez
 // Correo: alu0101815671@ull.edu.es
 // Fecha: 13/10/2026
-// Archivo automata.h: Implementacion de la clase Automata.
+// Archivo automata.cc: Implementacion de la clase Automata.
 
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <iomanip>
 
 #include "automata.h"
 
@@ -95,8 +96,9 @@ void Automata::Simulate(const std::string& filename) {
     for (char c : chain) {
       State actual_state = states_.at(current_id);
 
-      std::cout << current_id << "\t\t" << c << "\t\t"
-                << actual_state.Transit(Symbol(c)) << '\n';
+      std::cout << std::setw(6) << current_id 
+                << std::setw(11) << c 
+                << std::setw(10) << actual_state.Transit(Symbol(c)) << '\n';
       
       current_id = actual_state.Transit(Symbol(c));
       if (current_id == -1)

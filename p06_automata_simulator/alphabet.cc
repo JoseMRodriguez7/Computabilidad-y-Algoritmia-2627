@@ -7,7 +7,7 @@
 // Autor: José Manuel Rodríguez Rodríguez
 // Correo: alu0101815671@ull.edu.es
 // Fecha: 17/09/2025
-// Archivo p02_alphabet.h: Implementacion de la clase Alphabet.
+// Archivo alphabet.cc: Implementacion de la clase Alphabet.
 
 #include "alphabet.h"
 

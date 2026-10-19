@@ -7,15 +7,21 @@
 // Autor: José Manuel Rodríguez Rodríguez
 // Correo: alu0101815671@ull.edu.es
 // Fecha: 13/10/2026
-// Archivo state.h: Implementacion de la clase State.
+// Archivo p06_automata_cliente.cc: Archivo del cliente
 
 #include <iostream>
 #include <string>
 
 #include "automata.h"
 
+/**
+ * @brief Función principal del programa simulador de DFAs.
+ * @param argc Número de argumentos de la línea de comandos.
+ * @param argv Vector de argumentos de la línea de comandos.
+ * @return int Código de salida del programa (0 si es éxito, 1 si hay error).
+ */
 int main(int argc, char* argv[]) {
-  if (argc > 3) {
+  if (argc > 3 || argc == 1) {
     std::cerr << "Error. Use el comando --help.\n";
     return 1;
   }
@@ -23,9 +29,9 @@ int main(int argc, char* argv[]) {
   if (argc == 2 && std::string(argv[1]) == "--help") {
     std::cout << "Uso del programa\n"
               << "./programa [input.dfa] [input.txt]\n"
-              << "Donde input.dfa es el archivo de texto donde se "
+              << "Donde input.dfa es el archivo de texto donde se\n"
               << "encuentra la configuracion del DFA.\n"
-              << "y input.txt es el archivo donde se encuentran las cadenas "
+              << "e input.txt es el archivo donde se encuentran las cadenas\n"
               << "a simular\n";
     return 0;
   } else if (argc == 2) {
