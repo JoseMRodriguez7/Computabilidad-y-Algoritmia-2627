@@ -41,6 +41,12 @@ class Alphabet {
   bool Contains(const Symbol& symbol) const;
 
   /**
+   * @brief Getter que contiene la lista de símbolos del alfabeto
+   * @return lista de símbolos del alfabeto
+   */
+  const std::set<Symbol>& Getsymbols() const;
+
+  /**
    * @brief Sobrecarga del operador de inserción para imprimir el alfabeto.
    * @param os Flujo de salida.
    * @param alphabet Alfabeto a imprimir.

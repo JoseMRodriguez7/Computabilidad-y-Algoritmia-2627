@@ -36,6 +36,11 @@ class Automata {
      * @param filename Ruta del fichero .txt con las cadenas de entrada a evaluar.
      */
     void Simulate(const std::string& filename);
+
+    /**
+     * @brief Imprime por pantalla si el DFA tiene estados de absorción 
+     */
+    void PrintAbsortionStates() const;
   private:
     std::map<int, State> states_;   /// Mapa que asocia el identificador de cada estado con su objeto State correspondiente.
     int initial_state_;             /// Identificador del estado de arranque del DFA.

@@ -21,6 +21,10 @@ bool Alphabet::Contains(const Symbol& symbol) const {
   return symbols_.find(symbol) != symbols_.end();
 }
 
+const std::set<Symbol>& Alphabet::Getsymbols() const {
+  return symbols_;
+}
+
 std::ostream& operator<<(std::ostream& os, const Alphabet& alphabet) {
   os << "{";
   auto it = alphabet.symbols_.begin();

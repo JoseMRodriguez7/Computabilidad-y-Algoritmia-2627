@@ -46,5 +46,7 @@ int main(int argc, char* argv[]) {
 
   automata.Simulate(chain);
 
+  automata.PrintAbsortionStates();
+
   return 0;
 }

@@ -42,7 +42,7 @@ class State {
      * @param symbol Símbolo leído por el autómata.
      * @return int Identificador del estado destino, o -1 si la transición no existe (estado de muerte).
      */
-    int Transit(const Symbol& symbol);
+    int Transit(const Symbol& symbol) const;
 
     /**
      * @brief Verifica si los estados a los que van las transiciones existen
@@ -62,6 +62,12 @@ class State {
      * @return true si es estado de aceptación, false si no lo es.
      */
     bool IsAcceptance() const;
+
+    /**
+     * @brief Verifica si hay estados de absorción
+     * @return Verdadero si es un estado de absorción, falso si no
+     */
+    bool IsAbsortion() const;
   private:
     int identifier_;                     /// Identificador numérico único del estado.
     Alphabet alphabet_;                  /// Alfabeto asociado para validar transiciones entrantes.

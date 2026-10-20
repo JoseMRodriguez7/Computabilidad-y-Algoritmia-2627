@@ -21,7 +21,7 @@ void State::AddTransition(const Symbol& symbol, int identifier) {
     transitions_.insert({symbol, identifier});
 }
 
-int State::Transit(const Symbol& symbol) {
+int State::Transit(const Symbol& symbol) const {
   auto it = transitions_.find(symbol);
 
   if (it != transitions_.end())
@@ -30,6 +30,11 @@ int State::Transit(const Symbol& symbol) {
   return -1;
 }
 
+/// Getters
+int State::Identifier() const { return identifier_; }
+bool State::IsAcceptance() const { return accepting_state_; }
+
+/// Modificación
 bool State::CheckTransitions(int total_states) const {
   for (const auto& pair : transitions_) {
     int destiny = pair.second;
@@ -40,6 +45,14 @@ bool State::CheckTransitions(int total_states) const {
   return true;
 }
 
-/// Getters
-int State::Identifier() const { return identifier_; }
-bool State::IsAcceptance() const { return accepting_state_; }
+bool State::IsAbsortion() const {
+  if (accepting_state_)
+    return false;
+
+  for (const Symbol& sym : alphabet_.Getsymbols()) {
+    if (Transit(sym) != identifier_)
+      return false;
+  }
+
+  return true;
+}

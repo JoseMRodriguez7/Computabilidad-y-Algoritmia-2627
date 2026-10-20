@@ -13,6 +13,7 @@
 #include <fstream>
 #include <sstream>
 #include <iomanip>
+#include <vector>
 
 #include "automata.h"
 
@@ -110,5 +111,26 @@ void Automata::Simulate(const std::string& filename) {
     } else {
       std::cout << "Cadena de entrada RECHAZADA.\n";
     }
+  }
+}
+
+void Automata::PrintAbsortionStates() const {
+  std::vector<int> absortion_states;
+
+  for (const auto& pair : states_) {
+    if (pair.second.IsAbsortion())
+      absortion_states.push_back(pair.first);
+  }
+
+  if (absortion_states.empty()) {
+    std::cout << "No se encontraron estados de absorción\n";
+  } else {
+    std::cout << "Estados de absorción detectados:\n";
+    for (size_t i{0}; i < absortion_states.size(); ++i) {
+      std::cout << absortion_states[i];
+      if (i < absortion_states.size() - 1)
+        std::cout << ", ";
+    }
+    std::cout << std::endl;
   }
 }
